@@ -151,21 +151,7 @@ def analyze_tweet_sentiment(tweet):
     if t_total > 0:
         average = t_sent / t_total
     return average
-"""
-    
-    palavras = tweet_words(tweet)
-    media = 0
-    numero = 0
-    for pa in palavras:
-        sentimento = make_sentiment(get_word_sentment(palavra))
-        if not sentimento is None:
-            numero += sentimento
-            media += 1
-    if media > 0:
-        average = numero / media
-    return average
 
-"""
 # Phase 2: The Geometry of Maps
 
 def find_centroid(polygon):
@@ -237,20 +223,7 @@ def find_center(polygons):
         a += poligonos[2]
     x /= a
     y /= a
-    return (x, y)
-
-'''
-    medidas = 0
-    x = find_centroid(0)
-    y = find_centroid(1)
-    area = find_centroid(2)
-    polygons = [x, y, area]
-    for t in range(0, len(polygons)-1):
-        medidas += [(polygons[t] * polygons[t+2] / polygons[t+2]), (polygons[t+1] * polygons[t+2] / polygons [t+2])]
-    return medidas
-    
-'''
-    
+    return (x, y) 
                                                             
 
 
@@ -348,17 +321,18 @@ def average_sentiments(tweets_by_state):
     """
     averaged_state_sentiments = {}
     "*** YOUR CODE HERE ***"
-    contador = 0
-    media = 0
-    for x in tweets_by_state:
-        for z in tweets_by_state[x]:
-            sentimento = analyze_tweet_sentiment(z)
-            if not sentimento is None:
+    for x in tweets_by_state.keys():
+        contador = 0
+        media = 0        
+        for y in tweets_by_state[x]:
+            sentimento = analyze_tweet_sentiment(y)
+            if sentimento != None:
                 media += sentimento
-                contador += 1                
+                contador = 1
         if contador == 1:
-            averaged_state_sentiments[x] = media            
+            averaged_state_sentiments[x] = media
     return averaged_state_sentiments
+
 
 
 # Phase 4: Into the Fourth Dimension
@@ -379,15 +353,14 @@ def group_tweets_by_hour(tweets):
     """
     tweets_by_hour = {}
     "*** YOUR CODE HERE ***"
+
+    for x in range(0, 24):
+        tweets_by_hour[x] = []
     for x in tweets:
-        tempo = tweet_time(tweet).hour
-        if tempo in tweets_by_hour.keys():
-            tweets_by_hour[tempo].append[tweet]
-        else:
-            tweets_by_hour[tempo].append[tweet]
+        tweets_by_hour[x['time'].hour].append(x)
     return tweets_by_hour
-
-
+                       
+   
 # Interaction.  You don't need to read this section of the program.
 
 def print_sentiment(text='Are you virtuous or verminous?'):
